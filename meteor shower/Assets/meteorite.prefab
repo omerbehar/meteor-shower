@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5606294249945003467}
   - component: {fileID: -2899034609081645420}
   - component: {fileID: 6404910788071243446}
+  - component: {fileID: 2072762177760130367}
   m_Layer: 0
   m_Name: meteorite
   m_TagString: Untagged
@@ -141,3 +142,15 @@ CapsuleCollider2D:
   m_Offset: {x: 2.1587555, y: -1.5694094}
   m_Size: {x: 2.2725172, y: 2.2725172}
   m_Direction: 0
+--- !u!114 &2072762177760130367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5606294249945003466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6301d2a32d9cd43428244b2baac94738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -27,13 +27,13 @@ public class booster : MonoBehaviour
 
             case ("extra coins"):
                 manager.addCoins(100);
-                return;
+                break;
             case ("extra life"):
                 manager.addLives(1);
-                return;
+                break;
             case ("extra weapon"):
                 manager.doubleWeapon();
-                return;
+                break;
         }
         Destroy(this.gameObject);
     }
