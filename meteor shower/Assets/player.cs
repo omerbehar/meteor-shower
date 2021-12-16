@@ -16,7 +16,9 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime * speed, 0, 0);
+        Camera cam = Camera.main;
+        float width = 2f * cam.orthographicSize * cam.aspect - (GetComponent<SpriteRenderer>().bounds.size.x);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x + Input.GetAxis("Horizontal") * Time.deltaTime * speed, -width/2, width/2), transform.position.y, 0);
         if (Input.GetKeyDown(KeyCode.Space)) spawnBullet();
     }
 
@@ -24,7 +26,6 @@ public class player : MonoBehaviour
     {
         GameObject clone = Instantiate(bullet);
         float playerHeight = clone.GetComponent<SpriteRenderer>().bounds.size.y;
-        print(playerHeight);
-        clone.transform.position = new Vector3(transform.position.x, transform.position.y + playerHeight, 0);
+        clone.transform.position = new Vector3(transform.position.x, transform.position.y + playerHeight * 2, 0);
     }
 }

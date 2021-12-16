@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public int coins = 0;
+    public int lives = 3;
+    public int weapon = 1;
     public GameObject meteorSprite;
     // Start is called before the first frame update
     void Start()
@@ -42,5 +45,22 @@ public class GameManager : MonoBehaviour
         float height = 2f * cam.orthographicSize;
         float width = Random.Range(-height * cam.aspect + ySize/2, height * cam.aspect - ySize/2);
         return new Vector3(width/2, height/2 + ySize/2, 0);
+    }
+    public void addCoins(int amount)
+    {
+        coins += amount;
+    }
+
+    public void addLives(int amount)
+    {
+        if (lives + amount > 3) lives = 3; else lives += amount;
+    }
+
+    public void doubleWeapon()
+    {
+        if (weapon == 1)
+        {
+
+        }
     }
 }
