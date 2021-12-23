@@ -7,6 +7,8 @@ public class player : MonoBehaviour
     public float speed = 6;
     public GameObject bullet;
     public float bulletSpeed = 20;
+    public GameObject secondWeapon;
+    private float correctedWidth;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,16 @@ public class player : MonoBehaviour
     {
         Camera cam = Camera.main;
         float width = 2f * cam.orthographicSize * cam.aspect - (GetComponent<SpriteRenderer>().bounds.size.x);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x + Input.GetAxis("Horizontal") * Time.deltaTime * speed, -width/2, width/2), transform.position.y, 0);
+        if (secondWeapon.activeSelf == false)
+        {
+            correctedWidth = width;
+        }
+        else
+        {
+            correctedWidth = width * 0.5f;
+        }
+        if (tag == "Player") transform.position = new Vector3(Mathf.Clamp(transform.position.x + Input.GetAxis("Horizontal") * Time.deltaTime * speed,
+                -width / 2, correctedWidth / 2), transform.position.y, 0);
         if (Input.GetKeyDown(KeyCode.Space)) spawnBullet();
     }
 

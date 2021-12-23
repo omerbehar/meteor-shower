@@ -1,23 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public int coins = 0;
     public int lives = 3;
     public int weapon = 1;
+    public Image life1;
+    public Image life2;
+    public Image life3;
+    public Sprite life;
+    public Sprite lifeless;
     public GameObject meteorSprite;
+    public GameObject secondWeapon;
+    public Text score;
+    public GameObject player;
+    public Image gameOverImage;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(spawnMeteorites(3, 2, 10, 0.05f));
+        secondWeapon.SetActive(false);
+
+        StartCoroutine(spawnMeteorites(1.5f, 2, 20, 0.15f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        updateScore();
+        updateLives();
     }
 
     IEnumerator spawnMeteorites(float delayTime, float size, int amount, float gravity)
@@ -58,9 +71,58 @@ public class GameManager : MonoBehaviour
 
     public void doubleWeapon()
     {
-        if (weapon == 1)
-        {
+        secondWeapon.SetActive(true);
+        StartCoroutine(stopDoubleWeapon());
+    }
+    IEnumerator stopDoubleWeapon()
+    {
+        yield return new WaitForSeconds(3);
+        secondWeapon.SetActive(false);
+    }
 
+    private void updateScore()
+    {
+        score.text = coins.ToString();
+    }
+
+    private void updateLives()
+    {
+        switch (lives)
+        {
+            case (1):
+                life1.sprite = life;
+                life1.SetNativeSize();
+                life2.sprite = lifeless;
+                life2.SetNativeSize(); 
+                life3.sprite = lifeless;
+                life3.SetNativeSize(); 
+                break;
+            case (2):
+                life1.sprite = life;
+                life1.SetNativeSize();
+                life2.sprite = life;
+                life2.SetNativeSize();
+                life3.sprite = lifeless;
+                life3.SetNativeSize();
+                break;
+            case (3):
+                life1.sprite = life;
+                life1.SetNativeSize();
+                life2.sprite = life;
+                life2.SetNativeSize();
+                life3.sprite = life;
+                life3.SetNativeSize();
+                break;
+            case (0):
+                gameOver();
+                break;
         }
+    }
+    private void gameOver()
+    {
+        Destroy(player);
+        Color gameOverColor = gameOverImage.GetComponent<Image>().color;
+        gameOverColor.a = 1;
+        gameOverImage.GetComponent<Image>().color = gameOverColor;
     }
 }

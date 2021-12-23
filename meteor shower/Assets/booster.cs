@@ -10,7 +10,6 @@ public class booster : MonoBehaviour
     void Start()
     {
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
     }
 
     // Update is called once per frame
@@ -18,23 +17,38 @@ public class booster : MonoBehaviour
     {
        transform.position = new Vector3(transform.position.x, transform.position.y - Time.deltaTime * speed, 0);
     }
-
+    private void OnEnable()
+    {
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("bullet");
+        foreach (GameObject bullet in bullets)
+        {
+            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision);
-        switch (gameObject.GetComponent<SpriteRenderer>().sprite.name)
+        if (collision.transform.tag == "Player")
         {
-
-            case ("extra coins"):
-                manager.addCoins(100);
-                break;
-            case ("extra life"):
-                manager.addLives(1);
-                break;
-            case ("extra weapon"):
-                manager.doubleWeapon();
-                break;
+            switch (gameObject.GetComponent<SpriteRenderer>().sprite.name)
+            {
+                case ("extra coins"):
+                    manager.addCoins(500);
+                    break;
+                case ("extra life"):
+                    manager.addLives(1);
+                    break;
+                case ("extra weapon"):
+                    manager.doubleWeapon();
+                    break;
+            }
+            Destroy(GetComponent<CircleCollider2D>());
+            speed = 0;
+            GetComponent<Animator>().SetTrigger("onBoosterTaken");
+            Destroy(this.gameObject, 0.25f);
         }
-        Destroy(this.gameObject);
+        if (collision.transform.tag == "edge")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
