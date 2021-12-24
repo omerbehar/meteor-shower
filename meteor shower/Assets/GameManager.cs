@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     {
         secondWeapon.SetActive(false);
 
-        StartCoroutine(spawnMeteorites(1.5f, 2, 20, 0.15f));
+        StartCoroutine(spawnMeteorites(3f, 2, 20, 0.05f));
     }
 
     // Update is called once per frame
